@@ -21,7 +21,12 @@ async fn greet(State(greeting): State<Arc<Greeting>>) -> Json<Value> {
 
 async fn set_greeting(State(greeting): State<Arc<Greeting>>) {
     let mut data = greeting.value.lock().unwrap();
-    *data = "Oi!".to_string();
+
+    if *data == "Oi!" {
+        *data = "Tja,".to_string();
+    } else {
+        *data = "Oi!".to_string();
+    }
 }
 
 #[shuttle_runtime::main]
